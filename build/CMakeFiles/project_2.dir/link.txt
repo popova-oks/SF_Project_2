@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/project_2.dir/src/main.cpp.o CMakeFiles/project_2.dir/src/Chat.cpp.o CMakeFiles/project_2.dir/src/ClientCode.cpp.o CMakeFiles/project_2.dir/src/Messages.cpp.o CMakeFiles/project_2.dir/src/User.cpp.o -o project_2 
