@@ -9,6 +9,7 @@ set(SOURCES
     src/ClientCode.cpp
     src/Messages.cpp
     src/User.cpp
+    src/sha1.cpp
 )
 
 # Добавьте исполняемый файл

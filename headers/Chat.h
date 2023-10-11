@@ -14,7 +14,7 @@ class Chat : public ISubject {
     void attach(IObserver* observer) override;
     void detach(IObserver* observer) override;
     void notify(IObserver* sender, char event) override;
-    bool is_check_Observer(IObserver* observer, std::string login, std::string password) override;
+    bool is_check_Observer(IObserver* observer, std::string &login, std::string &password) override;
     IObserver* find_user(std::string login) override;
 
     bool is_Users() { return !all_users_.empty(); }

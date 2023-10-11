@@ -20,9 +20,9 @@ class User : public IObserver {
     void leave_chat(Chat* chat);
     void display_Messages();
 
-    void set_name(const std::string name) { name_ = name; }
-    void set_login(const std::string login) { login_ = login; }
-    void set_password(const std::string password) { password_ = password; }
+    void set_name(const std::string &name) { name_ = name; }
+    void set_login(const std::string &login) { login_ = login; }
+    void set_password(const std::string &password) { password_ = password; }	// FIX ME!! Вызов хэш функции!!!!
     void set_userID() { user_ID_ = ++static_counter; }
     void set_isAutorization() { is_autorization_ = true; }
     void set_notAutorization() { is_autorization_ = false; }

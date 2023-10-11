@@ -1,7 +1,7 @@
 #include "../headers/ClientCode.h"
+#include "../headers/sha1.h"
 #include <algorithm>
 #include <exception>
-
 
 void ClientCode::start() {
     std::cin.exceptions(std::istream::failbit);
@@ -38,7 +38,7 @@ void ClientCode::start() {
         case '2': {
             chat->display_listObservers();
             if(chat->is_Users()) {
-                user = user->log_in(chat);
+                user = login_user(chat);
                 if(user != nullptr) {
                     user->display_Messages();
                 }
@@ -78,7 +78,6 @@ void ClientCode::start() {
             break;
         }
         }
-        //ñáðîñèòü âñå ñèìâîëû èç ïîòîêà
         std::cin.clear();
         std::cin.ignore(32767, '\n');
     }
@@ -117,7 +116,7 @@ User* ClientCode::make_user(Chat* chat) {
                 continue;
             }
         }
-
+        password = sha1(password);		
         User* user = dynamic_cast<User*>(chat->find_user(login));
 
         if(user != nullptr) {
@@ -126,7 +125,6 @@ User* ClientCode::make_user(Chat* chat) {
             try {
                 user = new User(chat);
             } catch(const std::bad_alloc& ex) {
-
                 std::cout << "Allocation failed: " << ex.what() << '\n';
             }
             user->set_name(name);
@@ -143,6 +141,33 @@ User* ClientCode::make_user(Chat* chat) {
         std::cerr << "Failed to input: " << ex.what() << "\n";
     } catch(...) {
         std::cerr << "Some other exception\n";
+    }
+}
+
+User* ClientCode::login_user(Chat* chat) {
+    std::cin.clear();
+    std::cin.ignore(32767, '\n');
+
+    std::string login;
+    std::cout << "\nEnter your login: ";
+    std::cin >> login;
+
+    std::string password;
+    std::cout << "Enter your password: ";
+    std::cin >> password;
+	password = sha1(password);
+
+    User* user = dynamic_cast<User*>(chat->find_user(login));
+    if(user == nullptr) {
+        std::cout << "\nSuch user wasn't found! You'll need to register in the chat!\n";
+        return nullptr;
+    } else {        
+        if(chat->is_check_Observer(user, login, password)) {
+            return user->log_in(chat);
+        } else {
+            std::cout << "\nTry again!\n ";
+            return nullptr;
+        }
     }
 }
 

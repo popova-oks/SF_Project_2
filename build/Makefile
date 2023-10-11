@@ -249,6 +249,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/project_2.dir/build.make CMakeFiles/project_2.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/sha1.o: src/sha1.cpp.o
+.PHONY : src/sha1.o
+
+# target to build an object file
+src/sha1.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project_2.dir/build.make CMakeFiles/project_2.dir/src/sha1.cpp.o
+.PHONY : src/sha1.cpp.o
+
+src/sha1.i: src/sha1.cpp.i
+.PHONY : src/sha1.i
+
+# target to preprocess a source file
+src/sha1.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project_2.dir/build.make CMakeFiles/project_2.dir/src/sha1.cpp.i
+.PHONY : src/sha1.cpp.i
+
+src/sha1.s: src/sha1.cpp.s
+.PHONY : src/sha1.s
+
+# target to generate assembly for a file
+src/sha1.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project_2.dir/build.make CMakeFiles/project_2.dir/src/sha1.cpp.s
+.PHONY : src/sha1.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -273,6 +297,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/sha1.o"
+	@echo "... src/sha1.i"
+	@echo "... src/sha1.s"
 .PHONY : help
 
 

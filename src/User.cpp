@@ -2,38 +2,15 @@
 #include "../headers/Chat.h"
 #include <iostream>
 
-
 User::User(Chat* chat) : chat_(chat) { chat_->set_User(this); }
 
 User* User::log_in(Chat* chat) {
-    std::cin.clear();
-    std::cin.ignore(32767, '\n');
-
-    std::string login;
-    std::cout << "\nEnter your login: ";
-    std::cin >> login;
-
-    std::string password;
-    std::cout << "Enter your password: ";
-    std::cin >> password;
-
-    User* user = dynamic_cast<User*>(chat->find_user(login));
-    if(user == nullptr) {
-        std::cout << "\nSuch user wasn't found! You'll need to register in the chat!\n";
-        return nullptr;
+    if(is_autorization_) {
+        std::cout << "\nYou are login!\n";
     } else {
-        if(chat->is_check_Observer(user, login, password)) {
-            if(user->is_autorization_) {
-                std::cout << "\nYou are login!\n";
-            } else {
-                chat->attach(user);
-            }
-            return user;
-        } else {
-            std::cout << "\nTry again!\n ";
-            return nullptr;
-        }
+        chat->attach(this);
     }
+    return this;
 }
 
 void User::create_message() {

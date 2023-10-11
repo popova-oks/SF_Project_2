@@ -9,4 +9,5 @@ class ClientCode {
     void start();
     bool containsOnlyLettersNum(std::string const& str);
     User* make_user(Chat* chat);
+	User* login_user(Chat* chat);
 };

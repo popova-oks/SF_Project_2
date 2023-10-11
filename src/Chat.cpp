@@ -1,8 +1,7 @@
 #include "../headers/Chat.h"
+#include "../headers/sha1.h"
 #include <iostream>
 #include <limits>
-
-//#include "Messages.h"
 
 Chat::~Chat() {
     if(!all_users_.empty()) {
@@ -29,12 +28,9 @@ void Chat::notify(IObserver* sender, char event) {
         }
         if(event == 's') {
             std::cout << "\nEnter your message: ";
-
-            // Î÷èñòèòü áóôåð ââîäà (óäàëèòü âñå ñèìâîëû äî êîíöà ñòðîêè)
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
             std::string message;
-
             std::getline(std::cin, message);
 
             for(IObserver* user : list_observers_) {
@@ -55,8 +51,6 @@ void Chat::notify(IObserver* sender, char event) {
                 std::cout << "\nSuch user wasn't found! Try agan!";
             } else {
                 std::cout << "\nEnter your message: ";
-
-                // Î÷èñòèòü áóôåð ââîäà (óäàëèòü âñå ñèìâîëû äî êîíöà ñòðîêè)
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
                 std::string message;
@@ -94,30 +88,17 @@ void Chat::display_listObservers() {
     }
 }
 
-bool Chat::is_check_Observer(IObserver* observer, std::string login, std::string password) {
+bool Chat::is_check_Observer(IObserver* observer, std::string &login, std::string &password) {
     if(observer == nullptr) {
         return false;
     } else {
-        //ïðîâåðêà ëîãèíà è ïàðîëÿ
         while(true) {
             if((observer->get_login() == login) && (observer->get_password() == password)) {
                 return true;
             }
-            //ëîãè÷åñêîå XOR:
             else if((observer->get_login() == login || observer->get_password() == password) &&
                     !(observer->get_login() == login && observer->get_password() == password)) {
-                std::cout << "\nYour login or password are wrong! Try again.\n";
-                std::cout << "If you want to exit click: exit\n";
-
-                std::cout << "\nEnter your login: ";
-                std::cin >> login;
-                if(login == "exit") {
-                    return false;
-                } else {
-                    std::cout << "Enter your password: ";
-                    std::cin >> password;
-                }
-            } else {
+                std::cout << "\nYour login or password are wrong! \n";
                 return false;
             }
         }
